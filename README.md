@@ -1,5 +1,5 @@
 # Can Language Models Learn to Listen?
-This is the repo for the paper Can Language Models Learn to Listen?, appearing at ICCV 2023.
+This is the repo for the paper [Can Language Models Learn to Listen?](https://arxiv.org/abs/2308.10897), appearing at ICCV 2023.
 
 ## Setup Environment
 Create a new Python 3 environment and install PyTorch 1.11.0 from https://pytorch.org/get-started/previous-versions/. Then install the requirements for this repo via `pip install -r requirements.txt`.
