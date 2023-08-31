@@ -217,10 +217,14 @@ if __name__ == "__main__":
         frames = prefix_frames + frames
         for f, frame in enumerate(frames):
             cv2.imwrite(args.tmp_dir+'/{:08d}.jpg'.format(f), np.concatenate(frame, axis=1))
-        audio_path = os.path.join(args.audio_root, audio_fname_map[fname.split('.')[0]], video_fname.replace('.mp4', '.wav'))
-        if not os.path.exists(audio_path):
-            audio_path = audio_path.replace('.wav', '.mp3')
-        subprocess.call('ffmpeg -y -ss '+str(start_time)+' -t '+str(interval)+' -i '+audio_path+' '+args.tmp_dir+'/audio.wav', shell=True)
-        cmd = "ffmpeg -y -r "+str(args.fps)+f" -start_number 0 -i "+args.tmp_dir+"/%8d.jpg -i "+args.tmp_dir+f"/audio.wav -pix_fmt yuv420p -vframes {num_frames} "+os.path.join(args.output_dir, fname+'_'+str(start_frame))+'.mp4'
+        audio_path = None
+        if args.audio_root is not None:
+            audio_path = os.path.join(args.audio_root, audio_fname_map[fname.split('.')[0]], video_fname.replace('.mp4', '.wav'))
+            if not os.path.exists(audio_path):
+                audio_path = audio_path.replace('.wav', '.mp3')
+            subprocess.call('ffmpeg -y -ss '+str(start_time)+' -t '+str(interval)+' -i '+audio_path+' '+args.tmp_dir+'/audio.wav', shell=True)
+            cmd = "ffmpeg -y -r "+str(args.fps)+f" -start_number 0 -i "+args.tmp_dir+"/%8d.jpg -i "+args.tmp_dir+f"/audio.wav -pix_fmt yuv420p -vframes {num_frames} "+os.path.join(args.output_dir, fname+'_'+str(start_frame))+'.mp4'
+        else:
+            cmd = "ffmpeg -y -r "+str(args.fps)+f" -start_number 0 -i "+args.tmp_dir+"/%8d.jpg -pix_fmt yuv420p -vframes {num_frames} "+os.path.join(args.output_dir, fname+'_'+str(start_frame))+'.mp4'
         subprocess.call(cmd, shell=True)
         os.system('rm -rf '+args.tmp_dir+'/*')
