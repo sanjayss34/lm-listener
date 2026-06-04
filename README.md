@@ -18,8 +18,9 @@ else:
 You will also need to download the DECA and EMOCA models (there are instructions in those repos).
 
 ## Data Preparation
-Please download the data from the Google Driver folder: [here](https://drive.google.com/file/d/1fR4sobslLB0gESQj6zya63XgupJFpVjc/view?usp=sharing). Place the data so that there are directories `dataset/trevor`, `dataset/conan`, `dataset/stephen`, and `dataset/trevorconanstephen` that have the corresponding segment files.
+Please download the data from the Google Driver folder: [here](https://drive.google.com/file/d/12z85EMI-3io518svz787YYubvm_NovJ9/view?usp=sharing). Place the data so that there are directories `dataset/trevor`, `dataset/conan`, `dataset/stephen`, and `dataset/trevorconanstephen` that have the corresponding segment files.
 Note: If you want to use a cross-speaker VQ to train an LM Listener for a speaker (as we did for Conan and Stephen), you should copy the corresponding speaker's directory and then overwrite the `mean.npy` and `std.npy` files with the files from the `trevorconanstephen` directory. For instance, for Conan, you should copy `dataset/conan` to `dataset/conanglobal` and then copy `dataset/trevorconanstephen/{mean,std}.npy` to `dataset/conanglobal/`.
+Update [June 2026]: We found some pairs of videos where one is an excerpt of another, so there was content overlap for some videos in the original train and test sets. We have included in the data download new test files that exclude the clips from those videos. Please see Section E of the Appendix in the arXiv version of the paper for more information.
 
 ## Pre-trained model
 We provide a pre-trained VQ model and LM Listener for Trevor Noah [here](https://drive.google.com/drive/folders/1WMAsrky61gI36x_IstkoNzuNiqCmhKJV?usp=sharing).
